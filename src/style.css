@@ -9,9 +9,7 @@ html {
 }
 
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
+  height: max(100vh, 100%);
 }
 
 ul {
@@ -20,4 +18,19 @@ ul {
 
 img {
   width: 100%;
+}
+
+#root,
+#page-container {
+  height: 100%;
+  width: 100%;
+}
+
+#page-container {
+  display: grid;
+  grid-template-columns: minmax(250px, 20%) 1fr;
+}
+
+#projects-list .active-project {
+  border: 4px solid blue;
 }

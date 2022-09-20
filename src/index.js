@@ -1,15 +1,27 @@
+import { HomePageView } from "./homePage";
 import "./style.css";
-import { Todo, Project } from "./models";
-import { TodoView } from "./views";
+import { createElement } from "./utils";
+import { Project, Todo } from "./models";
 
-const todo1 = new Todo(
-  "clean the dishes",
-  "clean the dishes twice",
-  new Date(),
-  0,
-  false
-);
+const project1 = new Project("first project", [
+  new Todo("hello world"),
+  new Todo("hello world2"),
+  new Todo("hello worl3"),
+]);
+const project2 = new Project("2 project");
+const project3 = new Project("3 project");
+const project4 = new Project("4 project");
 
-// const todo2 = new Todo("clean", "clean twice", new Date(), 1, true);
+const projects = [project1, project2, project3, project4];
 
-document.body.append(new TodoView(todo1).getView());
+const root = createElement({
+  tag: "div",
+  attributes: {
+    id: "root",
+  },
+});
+
+const homePage = new HomePageView(root, projects);
+homePage.render(project1);
+
+document.body.append(root);
