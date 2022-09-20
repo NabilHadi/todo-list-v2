@@ -3,6 +3,7 @@ export function createElement({
   classNames = [],
   textContent = "",
   dataset = {},
+  attributes = {},
 }) {
   // Create elm with tag
   const elm = document.createElement(tag);
@@ -18,6 +19,11 @@ export function createElement({
   // Set dataset
   for (const key in dataset) {
     elm.dataset[key] = dataset[key];
+  }
+
+  // Set Attribuites
+  for (const key in attributes) {
+    elm.setAttribute(key, attributes[key]);
   }
 
   return elm;
