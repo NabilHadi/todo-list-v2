@@ -10,4 +10,6 @@ const todo1 = new Todo(
   false
 );
 
+// const todo2 = new Todo("clean", "clean twice", new Date(), 1, true);
+
 document.body.append(new TodoView(todo1).getView());
