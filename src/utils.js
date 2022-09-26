@@ -1,10 +1,11 @@
 export function createElement({
   tag = "div",
   classNames = [],
-  textContent = "",
+  textContent,
   dataset = {},
   attributes = {},
-}) {
+  eventHandlers = {},
+} = {}) {
   // Create elm with tag
   const elm = document.createElement(tag);
 
@@ -14,7 +15,9 @@ export function createElement({
   });
 
   // Set textContent
-  elm.textContent = textContent;
+  if (textContent) {
+    elm.textContent = textContent;
+  }
 
   // Set dataset
   for (const key in dataset) {
@@ -24,6 +27,11 @@ export function createElement({
   // Set Attribuites
   for (const key in attributes) {
     elm.setAttribute(key, attributes[key]);
+  }
+
+  // Set Handlers
+  for (const key in eventHandlers) {
+    elm.addEventListener(key, eventHandlers[key]);
   }
 
   return elm;
