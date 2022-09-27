@@ -13,8 +13,13 @@ class Todo {
 
 class Project {
   constructor(title, todos = []) {
+    this.id = uuidv4();
     this.title = title;
     this.todos = todos;
+
+    this.onTodosChange = (data) => {
+      console.log(data);
+    };
   }
 
   bindOnTodosChangeHandler(handler) {
