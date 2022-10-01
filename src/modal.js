@@ -36,11 +36,11 @@ export const modal = (function () {
     false
   );
 
-  function setContent(content) {
+  function setContent(content = []) {
     modalContent.innerHTML = "";
     modalContent.append(closeBtn);
 
-    modalContent.append(content);
+    modalContent.append(...content);
   }
 
   function showModal() {

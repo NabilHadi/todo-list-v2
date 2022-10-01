@@ -9,6 +9,7 @@ let currProject;
 
 const root = createElement({ tag: "div", attributes: { id: "root" } });
 document.body.append(root);
+
 const nav = createElement({ tag: "div", attributes: { id: "nav" } });
 root.append(nav);
 nav.append(navUl.view);
@@ -108,12 +109,46 @@ main.append(
   })
 );
 
+function getTodoView(todo) {
+  const todoTitle = createElement({
+    textContent: `Title: ${todo.title}`,
+    classNames: ["todo-title"],
+  });
+
+  const todoDescription = createElement({
+    textContent: `Description: ${todo.description}`,
+    classNames: ["todo-description"],
+  });
+
+  const todoDueDate = createElement({
+    textContent: `Due Date: ${todo.dueDate}`,
+    classNames: ["todo-due-date"],
+  });
+
+  const todoPriority = createElement({
+    textContent: `Priority: ${todo.priority}`,
+    classNames: ["todo-priority"],
+  });
+
+  const todoIsComplete = createElement({
+    textContent: `Is Complete: ${todo.isComplete}`,
+    classNames: ["todo-is-complete"],
+  });
+
+  return [
+    todoTitle,
+    todoDescription,
+    todoDueDate,
+    todoPriority,
+    todoIsComplete,
+  ];
+}
+
 mainUl.bindEvent("click", (e) => {
   const todoId = e.target.dataset.id;
   if (!todoId) return;
 
   const todo = currProject.getAllTodos().find((todo) => todo.id === todoId);
+  modal.setContent(getTodoView(todo));
   modal.showModal();
-  modal.setContent(todo.title);
-  console.log(todo);
 });
