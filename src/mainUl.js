@@ -8,13 +8,14 @@ export const mainUl = (function () {
     },
   });
 
-  function addTodo(id, title) {
+  function addTodo(todo) {
     view.append(
       createElement({
         tag: "li",
-        textContent: title,
+        textContent: todo.title,
+        classNames: ["clickable"],
         dataset: {
-          id: id,
+          id: todo.id,
         },
       })
     );

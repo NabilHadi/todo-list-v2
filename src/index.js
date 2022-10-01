@@ -3,12 +3,12 @@ import { createElement } from "./utils";
 import "./style.css";
 import { navUl } from "./navUl";
 import { mainUl } from "./mainUl";
+import { modal } from "./modal";
 
 let currProject;
 
 const root = createElement({ tag: "div", attributes: { id: "root" } });
 document.body.append(root);
-
 const nav = createElement({ tag: "div", attributes: { id: "nav" } });
 root.append(nav);
 nav.append(navUl.view);
@@ -16,6 +16,8 @@ nav.append(navUl.view);
 const main = createElement({ tag: "div", attributes: { id: "main" } });
 root.append(main);
 main.append(mainUl.view);
+
+root.append(modal.getView());
 
 const projects = [
   new Project("first project", [
@@ -47,11 +49,18 @@ navUl.bindEvent("click", (e) => {
   if (project) {
     mainUl.clearUl();
     for (const todo of project.getAllTodos()) {
-      mainUl.addTodo(todo.id, todo.title);
+      mainUl.addTodo(todo);
     }
     currProject = project;
   }
 });
+
+nav.append(
+  createElement({
+    tag: "label",
+    textContent: "New project:",
+  })
+);
 
 nav.append(
   createElement({
@@ -75,6 +84,13 @@ nav.append(
 
 main.append(
   createElement({
+    tag: "label",
+    textContent: "New Todo:",
+  })
+);
+
+main.append(
+  createElement({
     tag: "input",
     eventHandlers: {
       keydown: function (event) {
@@ -84,10 +100,20 @@ main.append(
 
         const newTodo = new Todo(event.target.value);
         currProject.addTodo(newTodo);
-        mainUl.addTodo(newTodo.id, newTodo.title);
+        mainUl.addTodo(newTodo);
 
         event.target.value = "";
       },
     },
   })
 );
+
+mainUl.bindEvent("click", (e) => {
+  const todoId = e.target.dataset.id;
+  if (!todoId) return;
+
+  const todo = currProject.getAllTodos().find((todo) => todo.id === todoId);
+  modal.showModal();
+  modal.setContent(todo.title);
+  console.log(todo);
+});

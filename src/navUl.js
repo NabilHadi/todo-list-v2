@@ -13,6 +13,7 @@ export const navUl = (function () {
       createElement({
         tag: "li",
         textContent: title,
+        classNames: ["clickable"],
         dataset: {
           id: id,
         },
